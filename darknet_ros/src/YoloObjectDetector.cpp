@@ -89,14 +89,16 @@ void YoloObjectDetector::init() {
   weightsPath += "/" + weightsModel;
   weights = new char[weightsPath.length() + 1];
   strcpy(weights, weightsPath.c_str());
-
+  weights = "/home/subzer0/ws/src/darknet_ros/darknet_ros/yolo_network_config/weights/yolov3_auv_sim_gate_obstacle_v1.backup";
+  printf("weights: %s\n", weights);
+  printf("weightsPath: %s\n", weightsPath);
   // Path to config file.
   nodeHandle_.param("yolo_model/config_file/name", configModel, std::string("yolov2-tiny.cfg"));
   nodeHandle_.param("config_path", configPath, std::string("/default"));
   configPath += "/" + configModel;
   cfg = new char[configPath.length() + 1];
   strcpy(cfg, configPath.c_str());
-
+  cfg = "/home/subzer0/ws/src/darknet_ros/darknet_ros/yolo_network_config/cfg/yolov3_auv_sim_gate_obstacle_v1.cfg";
   // Path to data folder.
   dataPath = darknetFilePath_;
   dataPath += "/data";
@@ -139,7 +141,7 @@ void YoloObjectDetector::init() {
   nodeHandle_.param("publishers/detection_image/queue_size", detectionImageQueueSize, 1);
   nodeHandle_.param("publishers/detection_image/latch", detectionImageLatch, true);
 
-  imageSubscriber_ = imageTransport_.subscribe(cameraTopicName, cameraQueueSize, &YoloObjectDetector::cameraCallback, this);
+  imageSubscriber_ = imageTransport_.subscribe("/auv_v2/camera_1/image_raw", 1, &YoloObjectDetector::cameraCallback, this);
   objectPublisher_ =
       nodeHandle_.advertise<darknet_ros_msgs::ObjectCount>(objectDetectorTopicName, objectDetectorQueueSize, objectDetectorLatch);
   boundingBoxesPublisher_ =
