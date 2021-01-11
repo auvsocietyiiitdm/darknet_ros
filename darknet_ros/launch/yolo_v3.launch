@@ -4,7 +4,7 @@
   
   <!-- Use YOLOv3 -->
   <arg name="network_param_file"         default="$(find darknet_ros)/config/yolov3_auv_sim_gate_obstacle_v1.yaml"/>
-  <arg name="image" default="camera/rgb/image_raw" />
+  <arg name="image" default="/auv_v2/f_cam/image_raw" />
 
 
   <!-- Include main launch file -->
