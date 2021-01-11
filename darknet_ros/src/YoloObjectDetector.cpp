@@ -84,21 +84,21 @@ void YoloObjectDetector::init() {
   nodeHandle_.param("yolo_model/threshold/value", thresh, (float)0.3);
 
   // Path to weights file.
-  nodeHandle_.param("yolo_model/weight_file/name", weightsModel, std::string("yolov2-tiny.weights"));
-  nodeHandle_.param("weights_path", weightsPath, std::string("/default"));
+  nodeHandle_.param("yolo_model/weight_file/name", weightsModel, std::string("THISISTEST"));
+  nodeHandle_.param("weights_path", weightsPath, std::string("THISISTEST"));
   weightsPath += "/" + weightsModel;
   weights = new char[weightsPath.length() + 1];
   strcpy(weights, weightsPath.c_str());
-  weights = "/home/subzer0/ws/src/darknet_ros/darknet_ros/yolo_network_config/weights/yolov3_auv_sim_gate_obstacle_v1.backup";
-  printf("weights: %s\n", weights);
-  printf("weightsPath: %s\n", weightsPath);
+  // weights = "/home/subzer0/ws/src/darknet_ros/darknet_ros/yolo_network_config/weights/yolov3_auv_sim_gate_obstacle_v1.backup";
+  // printf("weights: %s\n", weights);
+  // printf("weightsPath: %s\n", weightsPath);
   // Path to config file.
   nodeHandle_.param("yolo_model/config_file/name", configModel, std::string("yolov2-tiny.cfg"));
   nodeHandle_.param("config_path", configPath, std::string("/default"));
   configPath += "/" + configModel;
   cfg = new char[configPath.length() + 1];
   strcpy(cfg, configPath.c_str());
-  cfg = "/home/subzer0/ws/src/darknet_ros/darknet_ros/yolo_network_config/cfg/yolov3_auv_sim_gate_obstacle_v1.cfg";
+  // cfg = "/home/subzer0/ws/src/darknet_ros/darknet_ros/yolo_network_config/cfg/yolov3_auv_sim_gate_obstacle_v1.cfg";
   // Path to data folder.
   dataPath = darknetFilePath_;
   dataPath += "/data";
