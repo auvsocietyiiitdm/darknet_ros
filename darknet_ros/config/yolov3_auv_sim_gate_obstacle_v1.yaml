@@ -1,9 +1,9 @@
 yolo_model:
 
   config_file:
-    name: yolov3_auv_sim_gate_obstacle_v1.cfg
+    name: itr1.cfg
   weight_file:
-    name: yolov3_auv_sim_gate_obstacle_v1.backup
+    name: itr1.weights
   threshold:
     value: 0.4
   detection_classes:
