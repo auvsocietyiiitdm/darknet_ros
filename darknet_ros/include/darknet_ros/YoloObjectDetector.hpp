@@ -160,6 +160,9 @@ class YoloObjectDetector {
   //! Publisher of the bounding box image.
   ros::Publisher detectionImagePublisher_;
 
+  //! Publisher of image without bounding box .
+  ros::Publisher detectionImageWLPublisher_;    // WL stands for without labels
+
   // Yolo running on thread.
   std::thread yoloThread_;
 
@@ -212,7 +215,7 @@ class YoloObjectDetector {
   boost::shared_mutex mutexActionStatus_;
 
   // to publish image without labels or tags
-  IplImage* input_image;
+  IplImage* detectionImageWL;
 
   // double getWallTime();
 
