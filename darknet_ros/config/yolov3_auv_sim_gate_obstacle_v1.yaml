@@ -8,7 +8,10 @@ yolo_model:
     value: 0.4
   detection_classes:
     names:
-      - gate_green
-      - gate_red
-      - gate_mid
+      - green_pole
+      - red_pole
+      - mid_pole
+      - gate
       - obstacle
+      - red_bucket
+      - blue_bucket

@@ -235,7 +235,8 @@ bool YoloObjectDetector::publishDetectionImage(const cv::Mat& detectionImage) {
   cvImage.header.stamp = ros::Time::now();
   cvImage.header.frame_id = "detection_image";
   cvImage.encoding = sensor_msgs::image_encodings::BGR8;
-  cvImage.image = detectionImage;
+  // cvImage.image = detectionImage;
+  cvImage.image = cv::cvarrToMat(input_image);
   detectionImagePublisher_.publish(*cvImage.toImageMsg());
   ROS_DEBUG("Detection image has been published.");
   return true;
@@ -461,6 +462,7 @@ void YoloObjectDetector::yolo() {
     boost::shared_lock<boost::shared_mutex> lock(mutexImageCallback_);
     IplImageWithHeader_ imageAndHeader = getIplImageWithHeader();
     IplImage* ROS_img = imageAndHeader.image;
+    input_image = imageAndHeader.image;
     buff_[0] = ipl_to_image(ROS_img);
     headerBuff_[0] = imageAndHeader.header;
   }
@@ -576,7 +578,8 @@ void* YoloObjectDetector::publishInThread() {
         }
       }
     }
-    boundingBoxesResults_.header.stamp = ros::Time::now();
+    boundingBoxesResults_.header.stamp = boundingBoxesResults_.image_header.stamp;
+    // boundingBoxesResults_.header.stamp = ros::Time::now();
     boundingBoxesResults_.header.frame_id = "detection";
     boundingBoxesResults_.image_header = headerBuff_[(buffIndex_ + 1) % 3];
     boundingBoxesPublisher_.publish(boundingBoxesResults_);

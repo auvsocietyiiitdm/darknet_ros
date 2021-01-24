@@ -211,6 +211,9 @@ class YoloObjectDetector {
   int actionId_;
   boost::shared_mutex mutexActionStatus_;
 
+  // to publish image without labels or tags
+  IplImage* input_image;
+
   // double getWallTime();
 
   int sizeNetwork(network* net);
