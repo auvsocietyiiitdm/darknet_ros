@@ -17,10 +17,17 @@ catkin build darknet_ros -DCMAKE_BUILD_TYPE=Release
 
 
 ## Setup
-- **camera_topic**: change the topic at ```darknet_ros/config/ros.yaml``` (line 4)
-- **weight_path** and **cfg_path**: ```darknet_ros/config/yolov3_auv_sim_gate_obstacle_v1.yaml``` is the file that contains the paths to cfg and weights file for darknet to use.
+- **camera_topic**: change the topic at `darknet_ros/config/ros.yaml` (line 4)
+- **weight_path** and **cfg_path**: `darknet_ros/config/yolov3_auv_sim_gate_obstacle_v1.yaml` is the file that contains the paths to cfg and weights file for darknet to use. weights and .cfg files need to placed at `darknet_ros/darknet_ros/yolo_network_config/weights` and `darknet_ros/darknet_ros/yolo_network_config/cfg` respectively.
 
 ## Run
 ```
 roslaunch darknet_ros yolo_v3.launch
 ```
+
+## Description
+
+`/darknet_ros/detection_image_WL`: topic that publishes images that are inferred without labels. <br>
+`/darknet_ros/detection_image`: topic that publishes images that are inferred
+
+`seq` in `/darknet_ros/bounding_boxes` is mapped to `seq` in `/darknet_ros/detection_image_WL`.
