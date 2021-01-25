@@ -1,7 +1,7 @@
 subscribers:
 
   camera_reading:
-    topic: /auv_v2/f_cam/image_raw
+    topic: /auv_v2/f_cam/image_calib
     queue_size: 1
 
 actions:
