@@ -31,3 +31,5 @@ image_view:
   enable_opencv: false
   wait_key_delay: 100
   enable_console_output: true
+
+rate: 10
