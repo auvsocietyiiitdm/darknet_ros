@@ -32,3 +32,6 @@ roslaunch darknet_ros yolo_v3.launch
 `/darknet_ros/detection_image`: topic that publishes images that are inferred
 
 `seq` in `/darknet_ros/bounding_boxes` is mapped to `seq` in `/darknet_ros/detection_image_WL`.
+
+### Important points to keep in mind
+The default method is to discard boundboxes with height and width less than `0.01`. For now, this value has been set to `0.001`. After more testing, this value can (and should) be changed accordingly.
