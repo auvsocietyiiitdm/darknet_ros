@@ -1,0 +1,4 @@
+darknet_ros/yolo_network_config/cfg/*
+darknet_ros/yolo_network_config/weights/*
+darknet_ros/yolo_network_config/cfg/*
+.vscode/

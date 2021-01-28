@@ -1,7 +1,7 @@
 subscribers:
 
   camera_reading:
-    topic: /auv_v2/f_cam/image_calib
+    topic: /auv_v2/f_cam/image_raw
     queue_size: 1
 
 actions:
@@ -31,3 +31,5 @@ image_view:
   enable_opencv: false
   wait_key_delay: 100
   enable_console_output: true
+
+rate: 10

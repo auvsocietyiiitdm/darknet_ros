@@ -132,6 +132,11 @@ class YoloObjectDetector {
 
   //! ROS node handle.
   ros::NodeHandle nodeHandle_;
+  
+  // Initialize rate
+  // ROS control FPS
+  int rate_;
+  ros::Rate rate;
 
   //! Class labels.
   int numClasses_;
