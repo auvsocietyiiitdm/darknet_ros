@@ -1,14 +1,17 @@
 yolo_model:
 
   config_file:
-    name: yolov3_auv_sim_gate_obstacle_v1.cfg
+    name: itr1.cfg
   weight_file:
-    name: yolov3_auv_sim_gate_obstacle_v1.backup
+    name: itr1.weights
   threshold:
     value: 0.4
   detection_classes:
     names:
-      - gate_green
-      - gate_red
-      - gate_mid
+      - green_pole
+      - red_pole
+      - mid_pole
+      - gate
       - obstacle
+      - red_bucket
+      - blue_bucket
