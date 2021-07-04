@@ -26,9 +26,26 @@ catkin build darknet_ros -DCMAKE_BUILD_TYPE=Release
 roslaunch darknet_ros yolo_v3.launch
 ```
 
-## Description
+## Actions
+An image can be sent the action server `/darknet_ros/check_for_objects/`.
 
-`/darknet_ros/detection_image_WL`: topic that publishes images that are inferred without labels. <br>
-`/darknet_ros/detection_image`: topic that publishes images that are inferred
+## Documentation
 
-`seq` in `/darknet_ros/bounding_boxes` is mapped to `seq` in `/darknet_ros/detection_image_WL`.
+### Publishers
+`/darknet_ros/detection_image_WL`: This topic publishes images that are inferred without labels. <br>
+`/darknet_ros/detection_image`: This topic publishes images that are inferred by the neural network.
+`/darknet_ros/bounding_boxes`: This topic publishes the detected objects with bounding boxes in yolo format.
+`/darknet_ros/found_object`: This topic publishes the sequence number, frame id and number of detected objects in the same frame.
+
+### Subscribers
+`/auv_v2/f_cam/image_raw`: This is the topic that darknet_ros subscribes to recieve frames from the camera.
+
+The queue size of every topic has been set to 1 to achieve a real time feedback.
+
+### config files
+There are 2 configuration files (excluding the cfg file required by **darknet**) that are essential to run darknet_ros.
+- `darknet_ros/config/ros.yaml`: This file contains the details of the various subscribers and publishers used. Setting the frame rate and frame output is done at this file.
+- `darknet_ros/config/<darknet_config_file>.yaml`: This file holds the path to weights and cfg files required by darknet. The threshold of detection can be set here. This file also consists of all the classes used by the neural network.
+
+### Important points to keep in mind
+The default method is to discard boundboxes with height and width less than `0.01`. For now, this value has been set to `0.001`.
