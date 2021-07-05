@@ -134,6 +134,11 @@ class YoloObjectDetector {
 
   //! ROS node handle.
   ros::NodeHandle nodeHandle_;
+  
+  // Initialize rate
+  // ROS control FPS
+  int rate_;
+  ros::Rate rate;
 
   //! Class labels.
   int numClasses_;
@@ -161,6 +166,9 @@ class YoloObjectDetector {
 
   //! Publisher of the bounding box image.
   ros::Publisher detectionImagePublisher_;
+
+  //! Publisher of image without bounding box .
+  ros::Publisher detectionImageWLPublisher_;    // WL stands for without labels
 
   // Yolo running on thread.
   std::thread yoloThread_;
@@ -211,6 +219,9 @@ class YoloObjectDetector {
 
   int actionId_;
   boost::shared_mutex mutexActionStatus_;
+
+  // to publish image without labels or tags
+  IplImage* detectionImageWL;
 
   // double getWallTime();
 

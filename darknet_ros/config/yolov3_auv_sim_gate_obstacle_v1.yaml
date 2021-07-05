@@ -1,0 +1,17 @@
+yolo_model:
+
+  config_file:
+    name: itr1.cfg
+  weight_file:
+    name: itr1.weights
+  threshold:
+    value: 0.4
+  detection_classes:
+    names:
+      - green_pole
+      - red_pole
+      - mid_pole
+      - gate
+      - obstacle
+      - red_bucket
+      - blue_bucket
