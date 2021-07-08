@@ -89,16 +89,14 @@ void YoloObjectDetector::init() {
   weightsPath += "/" + weightsModel;
   weights = new char[weightsPath.length() + 1];
   strcpy(weights, weightsPath.c_str());
-  // weights = "/home/subzer0/ws/src/darknet_ros/darknet_ros/yolo_network_config/weights/yolov3_auv_sim_gate_obstacle_v1.backup";
-  // printf("weights: %s\n", weights);
-  // printf("weightsPath: %s\n", weightsPath);
+
   // Path to config file.
   nodeHandle_.param("yolo_model/config_file/name", configModel, std::string("yolov2-tiny.cfg"));
   nodeHandle_.param("config_path", configPath, std::string("/default"));
   configPath += "/" + configModel;
   cfg = new char[configPath.length() + 1];
   strcpy(cfg, configPath.c_str());
-  // cfg = "/home/subzer0/ws/src/darknet_ros/darknet_ros/yolo_network_config/cfg/yolov3_auv_sim_gate_obstacle_v1.cfg";
+
   // Path to data folder.
   dataPath = darknetFilePath_;
   dataPath += "/data";
@@ -167,7 +165,7 @@ void YoloObjectDetector::cameraCallback(const sensor_msgs::ImageConstPtr& msg) {
   cv_bridge::CvImagePtr cam_image;
 
   try {
-    cam_image = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
+    cam_image = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::RGB8);
   } catch (cv_bridge::Exception& e) {
     ROS_ERROR("cv_bridge exception: %s", e.what());
     return;
@@ -336,13 +334,7 @@ void* YoloObjectDetector::detectInThread() {
 
   image display = buff_[(buffIndex_ + 2) % 3];
   draw_detections(display, dets, nboxes, demoThresh_, demoNames_, demoAlphabet_, demoClasses_);
-  printf("BBOX MATRIX: \n");
-  for(int q=0; q<nboxes; q++){
-    for(int z=0; z<7; z++){
-      printf("%d: %f ", q, dets[q].prob[z]);
-    }
-    printf("\n");
-  }
+
   // extract the bounding boxes and send them to ROS
   int i, j;
   int count = 0;
@@ -369,12 +361,6 @@ void* YoloObjectDetector::detectInThread() {
         // BoundingBox must be 1% size of frame (3.2x2.4 pixels)
         // The constants in this statement have been changed from (0.01, 0.01)
         if (BoundingBox_width > 0.001 && BoundingBox_height > 0.001) {
-          
-          printf("ADDING FOLLOWING BBOX: \n");
-          for(int z=0; z<7; z++){
-            printf("%d: %f ", i, dets[i].prob[z]);
-          }
-          printf("\n");
           roiBoxes_[count].x = x_center;
           roiBoxes_[count].y = y_center;
           roiBoxes_[count].w = BoundingBox_width;
@@ -382,9 +368,6 @@ void* YoloObjectDetector::detectInThread() {
           roiBoxes_[count].Class = j;
           roiBoxes_[count].prob = dets[i].prob[j];
           count++;
-        }
-        else {
-          printf("%d: [%f, %f]", i, BoundingBox_width, BoundingBox_height);
         }
       }
     }
