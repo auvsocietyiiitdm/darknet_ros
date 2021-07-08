@@ -223,22 +223,23 @@ install(DIRECTORY config launch yolo_network_config
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
-# Download yolov2-tiny.weights
-#set(PATH "${CMAKE_CURRENT_SOURCE_DIR}/yolo_network_config/weights")
-#set(FILE "${PATH}/yolov2-tiny.weights")
-#message(STATUS "Checking and downloading yolov2-tiny.weights if needed ...")
-#if (NOT EXISTS "${FILE}")
-#  message(STATUS "... file does not exist. Downloading now ...")
-#  execute_process(COMMAND wget -q https://github.com/leggedrobotics/darknet_ros/releases/download/1.1.4/yolov2-tiny.weights -P ${PATH})
-#endif()
-
-# Download yolov3.weights
-#set(FILE "${PATH}/yolov3.weights")
-#message(STATUS "Checking and downloading yolov3.weights if needed ...")
-#if (NOT EXISTS "${FILE}")
+# Download weights
+set(PATH "${CMAKE_CURRENT_SOURCE_DIR}/yolo_network_config/weights")
+set(FILE "${PATH}/itr1.weights")
+message(STATUS "Checking and downloading weights if needed ...")
+if (NOT EXISTS "${FILE}")
   message(STATUS "... file does not exist. Downloading now ...")
-#  execute_process(COMMAND wget -q https://github.com/leggedrobotics/darknet_ros/releases/download/1.1.4/yolov3.weights -P ${PATH})
-#endif()
+  execute_process(COMMAND wget "https://drive.google.com/uc?export=download&id=18Ji2-mGy3_gmarDrGoAdo-7ovYX9vWsm" --output-document=${FILE})
+endif()
+
+# Download cfg
+set(PATH "${CMAKE_CURRENT_SOURCE_DIR}/yolo_network_config/cfg")
+set(FILE "${PATH}/itr1.cfg")
+message(STATUS "Checking and downloading cfg if needed ...")
+if (NOT EXISTS "${FILE}")
+  message(STATUS "... file does not exist. Downloading now ...")
+  execute_process(COMMAND wget "https://drive.google.com/uc?export=download&id=1s20VBTEBvPm9pUoGOalanDs0-Zm7RRyR" --output-document=${FILE})
+endif()
 
 #############
 ## Testing ##
